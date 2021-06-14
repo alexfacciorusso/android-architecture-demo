@@ -3,7 +3,6 @@ import com.google.android.material.textfield.TextInputLayout
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import kotlin.math.exp
 
 object TextInputLayoutMatchers {
     fun hasTextInputLayoutErrorText(expectedErrorText: String?): Matcher<View> {

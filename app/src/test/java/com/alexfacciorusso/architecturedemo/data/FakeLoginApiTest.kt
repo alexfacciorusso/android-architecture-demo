@@ -5,7 +5,6 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.ExperimentalKotest
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
-import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldNotBe
 

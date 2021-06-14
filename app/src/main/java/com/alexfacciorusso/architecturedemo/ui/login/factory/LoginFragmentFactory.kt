@@ -7,11 +7,11 @@ import com.alexfacciorusso.architecturedemo.ui.login.LoginFragment
 import javax.inject.Inject
 
 class LoginFragmentFactory @Inject constructor(
-    private val viewModelProvider: ViewModelProvider.Factory
+    private val viewModelProvider: ViewModelProvider.Factory,
 ) : FragmentFactory() {
     override fun instantiate(
         classLoader: ClassLoader,
-        className: String
+        className: String,
     ): Fragment = when (className) {
         LoginFragment::class.java.name -> LoginFragment(viewModelProvider)
         else -> super.instantiate(classLoader, className)

@@ -4,7 +4,6 @@ import com.alexfacciorusso.architecturedemo.data.api.LoginApi
 import io.kotest.core.spec.IsolationMode
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.nulls.beNull
-import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery

@@ -2,8 +2,8 @@ package com.alexfacciorusso.architecturedemo.ui.login.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.alexfacciorusso.architecturedemo.usecase.LoginUseCase
 import com.alexfacciorusso.architecturedemo.ui.login.LoginViewModel
+import com.alexfacciorusso.architecturedemo.usecase.LoginUseCase
 import javax.inject.Inject
 
 class LoginViewModelFactory @Inject constructor(

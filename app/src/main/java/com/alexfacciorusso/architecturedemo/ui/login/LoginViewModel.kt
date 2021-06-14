@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.alexfacciorusso.architecturedemo.usecase.LoginResult
 import com.alexfacciorusso.architecturedemo.usecase.LoginUseCase
 import dagger.hilt.android.scopes.ActivityScoped
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +19,9 @@ class LoginViewModel @Inject constructor(
 
     val loggedInState: LiveData<LoginViewState> = _loggedInState.asLiveData()
 
-    fun submitLogin(username: String, password: String){
+    fun submitLogin(username: String, password: String) {
         viewModelScope.launch {
-            _loggedInState.value = when(loginUseCase(username, password)) {
+            _loggedInState.value = when (loginUseCase(username, password)) {
                 LoginResult.Failure -> LoginViewState.Failure
                 is LoginResult.Success -> LoginViewState.Success
             }
@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(
 }
 
 sealed interface LoginViewState {
-    object Initial: LoginViewState
-    object Success: LoginViewState
-    object Failure: LoginViewState
+    object Initial : LoginViewState
+    object Success : LoginViewState
+    object Failure : LoginViewState
 }
