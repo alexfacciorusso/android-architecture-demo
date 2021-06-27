@@ -1,6 +1,8 @@
 package com.alexfacciorusso.architecturedemo.ui.login
 
 import com.alexfacciorusso.architecturedemo.InstantExecutorListener
+import com.alexfacciorusso.architecturedemo.login.LoginViewModel
+import com.alexfacciorusso.architecturedemo.login.LoginViewState
 import com.alexfacciorusso.architecturedemo.usecase.LoginResult
 import com.alexfacciorusso.architecturedemo.usecase.LoginUseCase
 import io.kotest.core.spec.IsolationMode
@@ -10,6 +12,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 
 @ExperimentalCoroutinesApi
 class LoginViewModelTest : BehaviorSpec({
@@ -20,8 +23,6 @@ class LoginViewModelTest : BehaviorSpec({
 
     Given("a viewmodel under test") {
         val viewModel = LoginViewModel(loginUseCase)
-
-        viewModel.loggedInState.observeForever { }
 
         val token = "token"
         val username = "username"
@@ -39,7 +40,15 @@ class LoginViewModelTest : BehaviorSpec({
                 }
 
                 Then("a logged in event should be sent") {
-                    viewModel.loggedInState.value shouldBe LoginViewState.Success
+                    viewModel.loggedInState.first() shouldBe LoginViewState.Success
+                }
+
+                And("the success state is used"){
+                    viewModel.useSuccess()
+
+                    Then("the state should be returned to initial"){
+                        viewModel.loggedInState.first() shouldBe LoginViewState.Initial
+                    }
                 }
             }
         }
@@ -55,7 +64,7 @@ class LoginViewModelTest : BehaviorSpec({
                 }
 
                 Then("a logged in event should be sent") {
-                    viewModel.loggedInState.value shouldBe LoginViewState.Failure
+                    viewModel.loggedInState.first() shouldBe LoginViewState.Failure
                 }
             }
         }

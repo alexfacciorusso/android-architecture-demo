@@ -1,23 +1,22 @@
-package com.alexfacciorusso.architecturedemo.ui.login
+package com.alexfacciorusso.architecturedemo.login
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.alexfacciorusso.architecturedemo.usecase.LoginResult
 import com.alexfacciorusso.architecturedemo.usecase.LoginUseCase
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@ActivityScoped
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
     private val _loggedInState = MutableStateFlow<LoginViewState>(LoginViewState.Initial)
 
-    val loggedInState: LiveData<LoginViewState> = _loggedInState.asLiveData()
+    val loggedInState = _loggedInState.asStateFlow()
 
     fun submitLogin(username: String, password: String) {
         viewModelScope.launch {
@@ -28,8 +27,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun useSuccess(){
         _loggedInState.value = LoginViewState.Initial
     }
 }
